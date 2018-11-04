@@ -1,28 +1,40 @@
 #lang racket
+(require rackunit)
+(require rackunit/gui)
 
-(require (file "assignment_q2.rkt")
-         (file "assignment_q3.rkt"))
+(require (file "assignment_q2.rkt"))
 
-;
-;Don't worry about this file unless you are doing the extra credit tests. 
-;
+(test/gui
+ (test-suite
+  "CT331 Assignment 2 - Question 2, Unit Tests"
+  (test-suite
+   "ins_beg tests"
+   (test-case "inserted element appears at the start of the list"
+              (check-equal? (ins_beg 1 '(2 3 4)) '(1 2 3 4) "element inserted incorrectly")
+   )
+  )
+   
+  (test-suite
+   "ins_end tests"
+   (test-case "initial test" (fail "unimplemented"))
+   )
+  (test-suite
+   "count_top_level tests"
+   (test-case "initial test" (fail "unimplemented"))
+   )
 
-;This structure allows a single function call
-;to run every test in sequence, rather than
-;calling each function separately. 
-(define (runTests)
-  (begin
-    (display "Running tests...\n")
-    ;begin calling test functions
-    (printf "1: ~a" (test_ins_beg1))
-    ;end calling test functions
-    (display "\nTests complete!\n")))
+  (test-suite
+   "count_instances tests"
+   (test-case "initial test" (fail "unimplemented"))
+   )
+  
+  (test-suite
+   "count_instances_tr tests"
+   (test-case "initial test" (fail "unimplemented"))
+   )
 
-;Begin test functions
-(define (test_ins_beg1)
-  (eq? (ins_beg 1 '(2 3 4)) '(1 2 3 4)))
-
-;End test functions
-
-;Run the tests
-(runTests)
+  (test-suite
+   "count_instances_deep tests"
+   (test-case "initial test" (fail "unimplemented"))
+   )
+  ))
