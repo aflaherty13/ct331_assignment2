@@ -39,6 +39,7 @@
 )
 
 (define (count_instances_i element l )
+  (printf "~a~n" l)
   (if (null? l) 0
     (if (eq? (first l) element)
       (+ (count_instances_i element (rest l)) 1)
@@ -48,31 +49,31 @@
 )
 
 (define (count_instances_tr element l )
-  (print "count_instances_tr")
+  (println "count_instances_tr")
+  (count_instances_tr_i element l 0)
+)
+
+(define (count_instances_tr_i element l n )
+  (if (eq? (first l) element)
+    (count_instances_tr_i element (rest l) (+ n 1))
+    (count_instances_tr_i element (rest l) n)
+   )
 )
 
 (define (count_instances_deep element l )
-  (print "count_instances_deep")
+  (printf "count_instances_deep:~a~n" l)
+  (if (null? l) 0
+     (cond [(list? (first l))
+           ; return sum first l and rest l
+           ( +
+           (count_instances_deep element (first l))
+           (count_instances_deep element (rest l))
+           )]
+          [else (if (eq? (first l) element)
+              (+ (count_instances_deep element (rest l)) 1)
+              (count_instances_deep element (rest l))
+              )
+          ]
+      )
+  )
 )
-
-; Notes: last one deep recursion... not count_instances
-;(define (count_instances_i element l i  )
-;  ; TODO: rewrite to count the instances of the elements in a list and sum the
-;  ; count from the calling code, returning that to the
-;  
-;  (cond [(null? l)]
-;        [(list? (first l))
-;         (printf "found list ~n~a~ni: ~a~n" (first l) i)
-;         (count_instances_i element (first l) i)
-;         (count_instances_i element (rest l) i)]
-;        [else
-;          (cond [(eq? (first l) element)        ; if its a list it should not be an element... but we could pass '(a b) and '(a b '(a b)) to function.... 
-;                 (printf "found element ~nfirst: ~a~nrest: ~a~ni: ~a~n" (first l) (rest l) i)
-;                 (count_instances_i element (rest l) (+ i 1))]
-;                [else
-;                 (printf "element not found ~nfirst: ~a~nrest: ~a~ni: ~a~n" (first l) (rest l) i)
-;                 (count_instances_i element (rest l) i)])
-;
-;          ])
-;  i
-;)
