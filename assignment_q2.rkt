@@ -16,30 +16,36 @@
 (provide count_top_level)
 (provide count_instances)
 (provide count_instances_tr)
+(provide count_instances_tr_i)    ;eek, exposing internal functionality to test
 (provide count_instances_deep)
 
 (define (ins_beg element l )
   (println "ins_beg")
+  (printf "~a : ~a~n" element l)
   (cons element l)
 )
 
 (define (ins_end element l )
   (println "ins_end")
+  (printf "~a : ~a~n" element l)
   (append l (list element))
 )
 
 (define (count_top_level l )
   (println "count_top_level")
+  (printf "~a~n" l)
   (count (or symbol? number?) l)
 )
 
 (define (count_instances element l )
   (println "count_instances")
+  (printf "~a : ~a~n" element l)
   (count_instances_i element l)
 )
 
 (define (count_instances_i element l )
-  (printf "~a~n" l)
+; (println "count_instances_i")
+  (printf "~a : ~a~n" element l)
   (if (null? l) 0
     (if (eq? (first l) element)
       (+ (count_instances_i element (rest l)) 1)
@@ -50,18 +56,24 @@
 
 (define (count_instances_tr element l )
   (println "count_instances_tr")
+  (printf "~a : ~a~n" element l)
   (count_instances_tr_i element l 0)
 )
 
 (define (count_instances_tr_i element l n )
-  (if (eq? (first l) element)
+;  (println "count_instances_tr_i")
+  (printf "~a (~a) : ~a~n" element n l)
+  (if (null? l) n
+   (if (eq? (first l) element)
     (count_instances_tr_i element (rest l) (+ n 1))
     (count_instances_tr_i element (rest l) n)
    )
+  )
 )
 
 (define (count_instances_deep element l )
-  (printf "count_instances_deep:~a~n" l)
+;  (printf "count_instances_deep:~a~n" l)
+  (printf "~a : ~a~n" element l)
   (if (null? l) 0
      (cond [(list? (first l))
            ; return sum first l and rest l
